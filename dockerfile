@@ -16,25 +16,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-RUN apt-get install apache2 -y
-
-RUN mkdir -p /var/www/html/website1.com/
-
-RUN touch /etc/apache2/sites-enabled/website1.conf
-
-RUN touch /var/www/html/website1.com/index.html
-
-RUN echo ' \
-<VirtualHost *:80> \n\
-ServerAdmin webmaster@localhost \n\
-ServerName website1.com \n\
-DocumentRoot /var/www/html/website1.com/ \n\
-</VirtualHost> ' >> /etc/apache2/sites-enabled/website1.conf
-
-RUN echo "website1.com" >> /var/www/html/website1.com/index.html
-
-RUN touch /home/ansfsadmin/service.sh && chmod 777 /home/ansfsadmin/service.sh
-
 EXPOSE 80
 CMD [“apachectl”, “-DFOREGROUND”]
 CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
